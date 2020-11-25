@@ -21,17 +21,17 @@ const SteamUser = require('steam-user');
 const CryptoJS = require('crypto-js');
 const WebSocket = require('ws');
 
-// const username = config.username;
-// const password = config.password;
-// const displayName = config.steamname;
-// const RLBuildId = config.BuildID; 
+const username = config.username;
+const password = config.password;
+const displayName = config.steamname;
+const RLBuildId = config.BuildID; 
 //This is used for the github version of the package (https://github.com/YEET78/rocketleague-api)
 
-const username = "Your steam username";
-const password = "Your steam password";
-const displayName = "Your steam display name";
-const RLBuildId = "Build ID"; //Build ID will change every game update
-
+// const username = "Your steam username";
+// const password = "Your steam password";
+// const displayName = "Your steam display name";
+// const RLBuildId = "Build ID"; //Build ID will change every game update
+//This is used for the NPM version of the package 
 
 let request = require('request');
 let clientSteam = new SteamUser();
