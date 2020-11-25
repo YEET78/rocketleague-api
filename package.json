@@ -1,1 +1,19 @@
-
+{
+  "name": "rlbackend",
+  "version": "1.0.0",
+  "description": "A backend connection to RL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "RocketLeague"
+  ],
+  "author": "DANG1172",
+  "license": "ISC",
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "steam-user": "^4.18.0",
+    "ws": "^7.4.0"
+  }
+}
