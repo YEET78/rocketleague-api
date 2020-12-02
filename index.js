@@ -10,12 +10,14 @@ const RLAppId = 252950;
 const RLEndpoint = 'https://api.rlpp.psynet.gg/Services';
 const RLKey = 'c338bd36fb8c42b1a431d30add939fc7';
 
-const RLUserAgent = 'RL Win/191113.75055.254903 gzip';
+const RLUserAgent = 'RL Win/201110.2187.299191 gzip';
 const RLLanguage = 'INT';
-const RLFeatureSet = 'PrimeUpdate31';
+const RLFeatureSet = 'PrimeUpdate32';
 const RLEnvironment = 'Prod';
 
-const config = require('./demo_config');
+//const config = require('./demo_config');
+
+
 const Utils = require('./lib/utils');
 const SteamUser = require('steam-user');
 const CryptoJS = require('crypto-js');
@@ -25,15 +27,10 @@ const username = config.username;
 const password = config.password;
 const displayName = config.steamname;
 const RLBuildId = config.BuildID; 
-//This is used for the github version of the package (https://github.com/YEET78/rocketleague-api)
 
-// const username = "Your steam username";
-// const password = "Your steam password";
-// const displayName = "Your steam display name";
-// const RLBuildId = "Build ID"; //Build ID will change every game update
-//This is used for the NPM version of the package 
 
 let request = require('request');
+const { config } = require('process');
 let clientSteam = new SteamUser();
 
 // Step 0: Verify config.
@@ -70,12 +67,12 @@ clientSteam.on('loggedOn', details => {
         }
 
         console.log('[Steam] Received an appticket.');
-
+        console.log('[Steam] Ticket is' + ticket)
         // Step 3: Authenticate at RocketLeague.
         let authRequest = JSON.stringify([
             {
                 Service: 'Auth/AuthPlayer',
-                Version: 1,
+                Version: 2,
                 ID: 1,
                 Params: {
                     Platform: 'Steam',
@@ -83,6 +80,7 @@ clientSteam.on('loggedOn', details => {
                     PlayerID: clientSteam.steamID.getSteamID64(),
                     Language: RLLanguage,
                     AuthTicket: Utils.bufferToHex(ticket).toUpperCase(),
+                    //EpicAuthTicket: Buffer.from('Any old shit').toString('base64'), //clientSteam.steamID.getSteamID64()
                     BuildRegion: '',
                     FeatureSet: RLFeatureSet,
                     bSkipAuth: false
@@ -112,6 +110,13 @@ clientSteam.on('loggedOn', details => {
             // Step 4: Consume tokens to send authenticated requests.
             let authResponse = JSON.parse(body).Responses[0].Result;
             if (authResponse === undefined) {
+                console.log('[RocketLeague] Failed: ' + body);
+                console.log('[RocketLeague] Failed: ' + authResponse);
+                console.log('[RocketLeague] Failed: ' + RLUserAgent);
+                console.log('[RocketLeague] Failed: ' + RLBuildId);
+                console.log('[RocketLeague] Failed: ' + RLEnvironment);
+                console.log('[RocketLeague] Failed: ' + authSignature);
+                console.log('[RocketLeague] Failed: ' + authRequest);
                 return console.log('[RocketLeague] Auth failed: ' + body);
             }
 
@@ -163,7 +168,7 @@ clientSteam.on('loggedOn', details => {
                     {
                         //Service: 'Products/GetPlayerProducts',
 			            Service: 'Skills/GetPlayerSkill',
-                        Version: 1,
+                        Version: 2,
                         ID: 3,
                         Params: {
                             //PlayerID: 'Steam|' + clientSteam.steamID.getSteamID64() + '|0',
