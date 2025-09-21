@@ -1,6 +1,6 @@
 
 #DEPRECATED
-"This repository is no longer maintained. Due to the many updates that have occured during the time i have been away, and the changes to Rocket Leagues authentication.
+This repository is no longer maintained. Due to the many updates that have occured during the time i have been away, and the changes to Rocket Leagues authentication.
 Please look into using [https://github.com/yataknemogy/rocket-league-api] instead.
 
 
